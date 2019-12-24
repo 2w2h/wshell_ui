@@ -1,0 +1,22 @@
+{
+  "name": "wshell_ui",
+  "version": "1.0.0",
+  "description": "wShell User Intreface",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2w2h/wshell_ui.git"
+  },
+  "keywords": [
+    "ui"
+  ],
+  "author": "pilot114",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/2w2h/wshell_ui/issues"
+  },
+  "homepage": "https://github.com/2w2h/wshell_ui#readme"
+}
