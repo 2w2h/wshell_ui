@@ -76,8 +76,7 @@
                     let b = 123;
                     <div>asd</div>
                     const = 345;
-                `">
-                </Source>
+                `"/>
             </Spoiler>
 
             <h3>Spoiler</h3>

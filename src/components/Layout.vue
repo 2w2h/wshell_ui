@@ -23,7 +23,7 @@
         name: 'Layout',
         props: {
             without_aside: Boolean,
-            default: false
+            default: () => false
         },
         mounted() {}
     }

@@ -31,11 +31,8 @@
         props: {
             code: {
                 type: String,
-                default: ''
+                default: () => ''
             }
-        },
-        created() {
-            console.log(this.code);
         },
         computed: {
             compiledTemplate() {
@@ -44,9 +41,8 @@
         },
         methods: {
             genRenderOutput() {
-                const {render, staticRenderFns} = this.compiledTemplate;
+                const {render} = this.compiledTemplate;
                 const _staticRenderFns = this.$options.staticRenderFns;
-                this.$options.staticRenderFns;
                 const output = render.call(this, this.$createElement);
                 this.$options.staticRenderFns = _staticRenderFns;
                 return output;

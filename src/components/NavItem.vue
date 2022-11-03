@@ -11,12 +11,12 @@
             </a>
         </template>
         <template v-else-if="hrefType === 'router_path'">
-            <a @click="$router.push({ path: href })" tabindex="0" @keyup.enter="$event.target.click()">
+            <a @click="push({ path: href })" tabindex="0" @keyup.enter="$event.target.click()">
                 <slot></slot>
             </a>
         </template>
         <template v-else>
-            <a @click="$router.push({ name: href })" tabindex="0" @keyup.enter="$event.target.click()">
+            <a @click="push({ name: href })" tabindex="0" @keyup.enter="$event.target.click()">
                 <slot></slot>
             </a>
         </template>
@@ -34,14 +34,14 @@
                 this.isActive = ((window.location.pathname + window.location.hash) === this.href);
             }
 
-            this.$router.beforeEach((to, from, next) => {
-                let match = window.location.pathname;
-                if (this.href.startsWith('#')) {
-                    match = window.location.pathname + this.href;
-                }
-                this.isActive = ((to.path + to.hash) === match);
-                next();
-            })
+            // this.$router.beforeEach((to, from, next) => {
+            //     let match = window.location.pathname;
+            //     if (this.href.startsWith('#')) {
+            //         match = window.location.pathname + this.href;
+            //     }
+            //     this.isActive = ((to.path + to.hash) === match);
+            //     next();
+            // })
         },
         props: {
             /**
@@ -70,6 +70,14 @@
                 return 'router_path';
             }
         },
+      methods: {
+        push(to) {
+          if (to.path) {
+            window.location.href = to.path;
+            window.location.reload();
+          }
+        }
+      }
     }
 </script>
 
