@@ -5,7 +5,7 @@
             <hr>
         </template>
         <template #main>
-          <grid-layout :layout.sync="layout"
+          <gridLayout v-model:layout="layout"
                        :col-num="12"
                        :row-height="30"
                        :is-draggable="draggable"
@@ -13,7 +13,7 @@
                        :vertical-compact="true"
                        :use-css-transforms="true"
           >
-            <grid-item v-for="item in layout"
+            <gridItem v-for="item in layout"
                        :key="item.i"
                        :static="item.static"
                        :x="item.x"
@@ -23,20 +23,17 @@
                        :i="item.i"
             >
               <span class="text">{{itemTitle(item)}}</span>
-            </grid-item>
-          </grid-layout>
+            </gridItem>
+          </gridLayout>
         </template>
     </Layout>
 </template>
 
 <script>
     import Layout from '../components/Layout'
-    import { GridLayout, GridItem } from "vue-grid-layout"
     export default {
         components: {
-            Layout,
-            GridLayout,
-            GridItem
+            Layout
         },
         data() {
           return {
@@ -113,19 +110,6 @@
   font-size: 12px;
 }
 .vue-grid-item .add {
-  cursor: pointer;
-}
-.vue-draggable-handle {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  top: 0;
-  left: 0;
-  background-position: bottom right;
-  padding: 0 8px 8px 0;
-  background-repeat: no-repeat;
-  background-origin: content-box;
-  box-sizing: border-box;
   cursor: pointer;
 }
 </style>

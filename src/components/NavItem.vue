@@ -26,22 +26,11 @@
 <script>
     export default {
         name: 'NavItem',
-        mounted() {
-            if (this.href.startsWith('#')) {
-                this.isActive = (window.location.hash === this.href);
-            }
-            if (this.href.startsWith('/')) {
-                this.isActive = ((window.location.pathname + window.location.hash) === this.href);
-            }
-
-            // this.$router.beforeEach((to, from, next) => {
-            //     let match = window.location.pathname;
-            //     if (this.href.startsWith('#')) {
-            //         match = window.location.pathname + this.href;
-            //     }
-            //     this.isActive = ((to.path + to.hash) === match);
-            //     next();
-            // })
+        created() {
+            window.addEventListener('hashchange', this.onHashChange);
+        },
+        beforeUnmount() {
+            window.removeEventListener('hashchange', this.onHashChange);
         },
         props: {
             /**
@@ -53,10 +42,19 @@
         },
         data() {
             return {
-                isActive: false
+                currentPath: window.location.hash
             }
         },
         computed: {
+            isActive() {
+                if (this.href.startsWith('#')) {
+                    return this.currentPath === this.href;
+                }
+                if (this.href.startsWith('/')) {
+                    return (window.location.pathname + this.currentPath) === this.href;
+                }
+                return false;
+            },
             hrefType() {
                 if (this.href.startsWith('#')) {
                     return 'anchor';
@@ -71,6 +69,9 @@
             }
         },
       methods: {
+          onHashChange() {
+              this.currentPath = window.location.hash;
+          },
         push(to) {
           if (to.path) {
             window.location.href = to.path;

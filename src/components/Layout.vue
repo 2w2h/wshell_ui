@@ -22,8 +22,10 @@
     export default {
         name: 'Layout',
         props: {
-            without_aside: Boolean,
-            default: () => false
+            without_aside: {
+                type: Boolean,
+                default: () => false
+            }
         },
         mounted() {}
     }

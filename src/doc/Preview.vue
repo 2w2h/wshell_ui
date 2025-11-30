@@ -5,48 +5,45 @@
                 <Source :code="code"/>
             </SetItem>
             <SetItem :cols="2">
-                <Injector :nodes="genRenderOutput()"></Injector>
+                <component :is="dynamicComponent" />
             </SetItem>
         </Set>
     </Spoiler>
 </template>
 
 <script>
-    import Vue from 'vue';
-    import Source from "../components/Source";
-    import Spoiler from "../components/Spoiler";
-    import Set from "../components/Set";
-    import SetItem from "../components/SetItem";
+import { compile, defineComponent, h } from 'vue';
+import Source from "../components/Source";
+import Spoiler from "../components/Spoiler";
+import Set from "../components/Set";
+import SetItem from "../components/SetItem";
 
-    Vue.component('Injector', {
-        functional: true,
-        props: ['nodes'],
-        render(h, {props}) {
-            return props.nodes
+export default defineComponent({
+    name: "Preview",
+    components: {SetItem, Set, Spoiler, Source},
+    props: {
+        code: {
+            type: String,
+            default: () => ''
         }
-    });
-    export default {
-        name: "Preview",
-        components: {SetItem, Set, Spoiler, Source},
-        props: {
-            code: {
-                type: String,
-                default: () => ''
+    },
+    computed: {
+        dynamicComponent() {
+            if (!this.code) {
+                return null;
             }
-        },
-        computed: {
-            compiledTemplate() {
-                return Vue.compile(this.code)
-            },
-        },
-        methods: {
-            genRenderOutput() {
-                const {render} = this.compiledTemplate;
-                const _staticRenderFns = this.$options.staticRenderFns;
-                const output = render.call(this, this.$createElement);
-                this.$options.staticRenderFns = _staticRenderFns;
-                return output;
+            try {
+                const render = compile(this.code);
+                return defineComponent({
+                    render,
+                });
+            } catch (e) {
+                console.error(e);
+                return defineComponent({
+                    render: () => h('div', 'Error compiling template'),
+                });
             }
         }
     }
+});
 </script>

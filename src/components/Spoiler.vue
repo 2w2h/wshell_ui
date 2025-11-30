@@ -33,7 +33,7 @@
         mounted() {
             window.addEventListener('resize', this.resizeExpand);
         },
-        beforeDestroy() {
+        beforeUnmount() {
             window.removeEventListener('resize', this.resizeExpand);
         },
         methods: {

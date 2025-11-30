@@ -29,12 +29,12 @@
                     g = (255 - parseInt(hex.slice(2, 4), 16)).toString(16),
                     b = (255 - parseInt(hex.slice(4, 6), 16)).toString(16);
                 return '#' + this.padZero(r) + this.padZero(g) + this.padZero(b);
+            },
+            padZero(str, len) {
+                len = len || 2;
+                let zeros = new Array(len).join('0');
+                return (zeros + str).slice(-len);
             }
-        },
-        padZero(str, len) {
-            len = len || 2;
-            let zeros = new Array(len).join('0');
-            return (zeros + str).slice(-len);
         }
     }
 </script>
